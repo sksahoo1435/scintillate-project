@@ -1,0 +1,70 @@
+@media screen and (max-width:1300px) {
+
+    .css-gevf59 {
+        overflow-x: hidden !important;
+        width: 60% !important;
+    }
+}
+
+@media screen and (max-width:1100px) {
+
+    .css-gevf59 {
+        overflow-x: hidden !important;
+        width: 50% !important;
+    }
+
+    .css-evb4b5 {
+        width: 80%;
+        padding-left: 90px;
+    }
+    
+}
+
+@media screen and (max-width:770px) {
+
+    .css-uiydbb {
+        margin-left: -20%;
+    }
+    
+}
+
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+@keyframes scrollRotate {
+    0% {
+        transform: rotate(-90deg) translateX(100%);
+    }
+
+    100% {
+        transform: rotate(-90deg) translateX(-100%);
+    }
+}
+
+.scroll-rotate-animation {
+    animation: scrollRotate 10s linear infinite;
+}
+
+
+@keyframes scrollRotateBottom {
+    100% {
+        transform: rotate(-90deg) translateX(100%);
+    }
+
+    0% {
+        transform: rotate(-90deg) translateX(-100%);
+    }
+}
+
+.scroll-rotate-animation-bottom {
+    animation: scrollRotateBottom 10s linear infinite;
+}

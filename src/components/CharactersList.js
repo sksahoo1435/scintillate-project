@@ -86,19 +86,15 @@ const CharacterList = () => {
                 The table includes character's name.
               </Text>
             </Box>
+            <Box bgColor='white' position='relative' h='auto' minH={{ base: '60vh', md: '70vh' }} borderRadius='md' boxShadow='dark-lg'>
 
-            <Box bgColor='white' position='relative' h='70dvh' minH='60dvh' borderRadius='md'
-              boxShadow='dark-lg'>
-
-              {/* Character List */}
               {loadings ? (
-                <Center p={250} minW='65dvw'>
+                <Center p={{ base: 10, md: 250 }} minW={{ base: '85vw', md: '65vw' }}>
                   <Spinner size='xl' />
                 </Center>
-
               ) : (
-                <SimpleGrid columns={[2, 3, 5]} spacing={4} padding={15}>
-                  {characters.map((character,ind) => (
+                <SimpleGrid columns={[2, 4, 5]} spacing={4} padding={{ base: 3, md: 15 }}>
+                  {characters.map((character, ind) => (
                     <Tooltip key={character.name} label={`Click the ${character.name} to see the profile`} hasArrow>
                       <Box
                         bg='white'
@@ -107,9 +103,8 @@ const CharacterList = () => {
                         boxShadow='dark-lg'
                         textAlign='center'
                       >
-                        {/* Avatar and Character Name */}
                         <Stack direction='column' spacing='24px'>
-                          <Center>
+                        <Center>
                             
                             {ind % 2 === 0 && ind % 3 === 0
                                   ? <Avatar name={character.name} size='lg' />
@@ -121,13 +116,10 @@ const CharacterList = () => {
                                 }
                           </Center>
                           <Text fontWeight='bold' pt={2} _hover={{ textShadow: '1px 1px gray' }}>
-                            {/* Link to character details page */}
                             <Link to={`/characters/${character.url.split('/').slice(-2, -1)[0]}`}>
                               {character.name}
                             </Link>
                           </Text>
-
-                          {/* Checkbox for marking/unmarking as favorite */}
                           <Checkbox
                             colorScheme='orange'
                             borderColor='#f87501ba'
@@ -144,45 +136,45 @@ const CharacterList = () => {
                 </SimpleGrid>
               )}
 
-              {/* Pagination at the bottom */}
-              {loadings ? "" : <HStack mt={4} spacing={2} justify='center' position='relative' bottom='2%' >
-                {/* Previous Page Button */}
-                <Button
-                  onClick={() => handlePageChange(page - 1)}
-                  isDisabled={page === 1}
-                  border='1px'
-                  borderColor='#f87501ba'
-                  bgGradient={page === 1 ? 'gray.200' : 'linear(to-r, #f2c996cf, #9f5019d4)'}
-                >
-                  Previous
-                </Button>
-
-                {/* Page Buttons */}
-                {Array.from({ length: totalPages }, (_, index) => (
+              {loadings ? "" : (
+                <HStack mt={4} spacing={2} justify='center' position='relative' bottom='2%' >
                   <Button
-                    key={index}
-                    onClick={() => handlePageChange(index + 1)}
-                    colorScheme={index + 1 === page ? 'orange' : 'gray'}
-                    variant={index + 1 === page ? 'solid' : 'outline'}
+                    onClick={() => handlePageChange(page - 1)}
+                    isDisabled={page === 1}
+                    border='1px'
                     borderColor='#f87501ba'
+                    bgGradient={page === 1 ? 'gray.200' : 'linear(to-r, #f2c996cf, #9f5019d4)'}
                   >
-                    {index + 1}
+                    Previous
                   </Button>
-                ))}
 
-                {/* Next Page Button */}
-                <Button
-                  onClick={() => handlePageChange(page + 1)}
-                  isDisabled={page === totalPages}
-                  border='1px'
-                  borderColor='#f87501ba'
-                  bgGradient={page === totalPages ? 'gray.200' : 'linear(to-r, #f2c996cf, #9f5019d4)'}
-                >
-                  Next
-                </Button>
-              </HStack>}
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <Button
+                      key={index}
+                      onClick={() => handlePageChange(index + 1)}
+                      colorScheme={index + 1 === page ? 'orange' : 'gray'}
+                      variant={index + 1 === page ? 'solid' : 'outline'}
+                      borderColor='#f87501ba'
+                    >
+                      {index + 1}
+                    </Button>
+                  ))}
+
+                  <Button
+                    onClick={() => handlePageChange(page + 1)}
+                    isDisabled={page === totalPages}
+                    border='1px'
+                    borderColor='#f87501ba'
+                    bgGradient={page === totalPages ? 'gray.200' : 'linear(to-r, #f2c996cf, #9f5019d4)'}
+                  >
+                    Next
+                  </Button>
+                </HStack>
+              )}
 
             </Box>
+
+           
             <Box position="absolute" right="0" bottom="50%" top="10">
               <Text
                 className="scroll-rotate-animation-bottom"

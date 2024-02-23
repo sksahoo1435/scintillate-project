@@ -104,16 +104,16 @@ const CharacterList = () => {
                         textAlign='center'
                       >
                         <Stack direction='column' spacing='24px'>
-                        <Center>
-                            
+                          <Center>
+
                             {ind % 2 === 0 && ind % 3 === 0
-                                  ? <Avatar name={character.name} size='lg' />
-                                  : <Avatar size='lg' src={`${ind % 2 === 0
-                                    ? 'https://bit.ly/dan-abramov'
-                                    : ind % 3 === 0
-                                      ? 'https://bit.ly/sage-adebayo'
-                                      : 'https://bit.ly/ryan-florence'}`} />
-                                }
+                              ? <Avatar name={character.name} size='lg' />
+                              : <Avatar size='lg' src={`${ind % 2 === 0
+                                ? 'https://bit.ly/dan-abramov'
+                                : ind % 3 === 0
+                                  ? 'https://bit.ly/sage-adebayo'
+                                  : 'https://bit.ly/ryan-florence'}`} />
+                            }
                           </Center>
                           <Text fontWeight='bold' pt={2} _hover={{ textShadow: '1px 1px gray' }}>
                             <Link to={`/characters/${character.url.split('/').slice(-2, -1)[0]}`}>
@@ -174,7 +174,7 @@ const CharacterList = () => {
 
             </Box>
 
-           
+
             <Box position="absolute" right="0" bottom="50%" top="10">
               <Text
                 className="scroll-rotate-animation-bottom"

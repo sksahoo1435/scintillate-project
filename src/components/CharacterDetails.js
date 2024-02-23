@@ -139,7 +139,7 @@ const CharacterDetails = () => {
                 <Avatar
                   size={{ base: 'lg', md: 'xl', lg: '2xl' }}
                   name={character.name}
-                  src='https://bit.ly/ryan-florence'
+                  // src='https://bit.ly/ryan-florence'
                 />
               </Center>
               <Center>

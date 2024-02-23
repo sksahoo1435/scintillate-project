@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, HStack, Box, Checkbox, Spinner, Avatar, Stack, Text, Tooltip, SimpleGrid, Center
+  Button, HStack, Box, Checkbox, Spinner, Avatar, Stack, Text, Tooltip, SimpleGrid, Center, useBreakpointValue,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import './main.css'
@@ -51,16 +51,24 @@ const CharacterList = () => {
     });
   };
 
+  // Responsive column count for SimpleGrid
+  const gridColumnCount = useBreakpointValue({ base: 2, md: 4, lg: 5 });
+
+  // Responsive padding for SimpleGrid
+  const gridPadding = useBreakpointValue({ base: 3, md: 15 });
+
+  // Responsive margin for HStack
+  const hstackMargin = useBreakpointValue({ base: 4, md: 0 });
+
   return (
     <>
       {/* Main Container with background image */}
       <Box bgImage={`url(${moviesBgImage})`} bgSize="cover" overflow='hidden' h='100dvh'>
 
-        {/* Marquee Heading */}
         <Center h='50px'>
           <Text
             as='h3'
-            fontSize='xl'
+            fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
             fontWeight='bold'
             textShadow='1.2px 1px gray'
             display='inline-block'
@@ -71,7 +79,7 @@ const CharacterList = () => {
           </Text>
         </Center>
 
-        <Box p={5} pt='5%'>
+        <Box p={5} pt={{ base: '8%', md: '5%' }} >
 
           <Center>
             {/* Tooltip and Table Container */}
@@ -86,19 +94,21 @@ const CharacterList = () => {
                 The table includes character's name.
               </Text>
             </Box>
-            <Box bgColor='white' position='relative' h='auto' minH={{ base: '60vh', md: '70vh' }} borderRadius='md' boxShadow='dark-lg'>
+            <Box bgColor='white' position='relative' h={{ base: '60vh', md: '70vh' }} minH={{ base: '60vh', md: '70vh' }}
+              borderRadius='md' boxShadow='dark-lg' overflowY="auto" className='scroll_charcterlist' zIndex='999'>
 
               {loadings ? (
                 <Center p={{ base: 10, md: 250 }} minW={{ base: '85vw', md: '65vw' }}>
                   <Spinner size='xl' />
                 </Center>
               ) : (
-                <SimpleGrid columns={[2, 4, 5]} spacing={4} padding={{ base: 3, md: 15 }}>
+
+                <SimpleGrid columns={gridColumnCount} spacing={4} padding={gridPadding} >
                   {characters.map((character, ind) => (
                     <Tooltip key={character.name} label={`Click the ${character.name} to see the profile`} hasArrow>
                       <Box
                         bg='white'
-                        p={4}
+                        p={{ base: 2, md: 4 }}
                         borderRadius='md'
                         boxShadow='dark-lg'
                         textAlign='center'
@@ -108,14 +118,17 @@ const CharacterList = () => {
 
                             {ind % 2 === 0 && ind % 3 === 0
                               ? <Avatar name={character.name} size='lg' />
-                              : <Avatar size='lg' src={`${ind % 2 === 0
-                                ? 'https://bit.ly/dan-abramov'
-                                : ind % 3 === 0
-                                  ? 'https://bit.ly/sage-adebayo'
-                                  : 'https://bit.ly/ryan-florence'}`} />
+                              : <Avatar size={{ base: 'md', md: 'lg' }}
+                                mb={{ base: 2, md: 0 }} src={`${ind % 2 === 0
+                                  ? 'https://bit.ly/dan-abramov'
+                                  : ind % 3 === 0
+                                    ? 'https://bit.ly/sage-adebayo'
+                                    : 'https://bit.ly/ryan-florence'}`} />
                             }
                           </Center>
-                          <Text fontWeight='bold' pt={2} _hover={{ textShadow: '1px 1px gray' }}>
+                          <Text fontWeight='bold'
+                            pt={{ base: 2, md: 0 }}
+                            fontSize={{ base: 'sm', md: 'lg' }} _hover={{ textShadow: '1px 1px gray' }}>
                             <Link to={`/characters/${character.url.split('/').slice(-2, -1)[0]}`}>
                               {character.name}
                             </Link>
@@ -125,9 +138,8 @@ const CharacterList = () => {
                             borderColor='#f87501ba'
                             isChecked={favorites.some((fav) => fav.name === character.name)}
                             onChange={() => handleCheckboxChange(character)}
-                            _hover={{ transform: 'scale(1.05)', transition: '0.3s', boxShadow: 'dark-lg' }}
                           >
-                            Add to Favorites
+                            <Text noOfLines={1}>Add to Favorites</Text>
                           </Checkbox>
                         </Stack>
                       </Box>
@@ -137,15 +149,17 @@ const CharacterList = () => {
               )}
 
               {loadings ? "" : (
-                <HStack mt={4} spacing={2} justify='center' position='relative' bottom='2%' >
+                <HStack mt={{ base: 4, md: 8 }} spacing={2} justify='center' margin={{ base: hstackMargin, md: '0' }}>
                   <Button
                     onClick={() => handlePageChange(page - 1)}
                     isDisabled={page === 1}
                     border='1px'
                     borderColor='#f87501ba'
                     bgGradient={page === 1 ? 'gray.200' : 'linear(to-r, #f2c996cf, #9f5019d4)'}
+                    size={{ base: 'sm', md: 'md' }}
+                    noOfLines={1}
                   >
-                    Previous
+                    <Text fontSize='1rem'>Previous</Text>
                   </Button>
 
                   {Array.from({ length: totalPages }, (_, index) => (
@@ -155,8 +169,10 @@ const CharacterList = () => {
                       colorScheme={index + 1 === page ? 'orange' : 'gray'}
                       variant={index + 1 === page ? 'solid' : 'outline'}
                       borderColor='#f87501ba'
+                      size={{ base: 'sm', md: 'md' }}
+                      display={{ base: 'none', md: 'block' }}
                     >
-                      {index + 1}
+                      <Text fontSize='1rem' size = 'md'>{ index + 1}</Text>
                     </Button>
                   ))}
 
@@ -166,10 +182,12 @@ const CharacterList = () => {
                     border='1px'
                     borderColor='#f87501ba'
                     bgGradient={page === totalPages ? 'gray.200' : 'linear(to-r, #f2c996cf, #9f5019d4)'}
+                    size={{ base: 'sm', md: 'md' }}
                   >
-                    Next
+                    <Text fontSize='1rem'>Next</Text>
                   </Button>
                 </HStack>
+
               )}
 
             </Box>

@@ -1,5 +1,12 @@
+.charcterDetailsContainer::-webkit-scrollbar {
+    display: none;
+}
 
-.scrollable_gridbox::-webkit-scrollbar{
+.scroll_charcterlist::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollable_gridbox::-webkit-scrollbar {
     display: none;
 }
 
@@ -23,8 +30,8 @@
         width: 80%;
         padding-left: 90px;
     }
-    
-    .container{
+
+    .container {
         display: flex;
         flex-direction: row;
         gap: 5;
@@ -36,7 +43,7 @@
     .css-uiydbb {
         margin-left: -20%;
     }
-    
+
 }
 
 

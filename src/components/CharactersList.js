@@ -5,6 +5,8 @@ import {
 import { Link } from 'react-router-dom';
 import './main.css'
 import moviesBgImage from '../Assets/Images/setup_movie_bg.jpg';
+import { useDispatch } from 'react-redux';
+import {idSlice} from '../Stores/slices/IdIndex'
 
 const CharacterList = () => {
   // State for characters, page, total pages, loading status, and favorites
@@ -16,6 +18,8 @@ const CharacterList = () => {
     const storedFavorites = localStorage.getItem('favorites');
     return storedFavorites ? JSON.parse(storedFavorites) : [];
   });
+
+  const dispatch = useDispatch()
 
   // Fetch characters when the page changes
   useEffect(() => {
@@ -128,7 +132,7 @@ const CharacterList = () => {
                           </Center>
                           <Text fontWeight='bold'
                             pt={{ base: 2, md: 0 }}
-                            fontSize={{ base: 'sm', md: 'lg' }} _hover={{ textShadow: '1px 1px gray' }}>
+                            fontSize={{ base: 'sm', md: 'lg' }} _hover={{ textShadow: '1px 1px gray' }} onClick={(e)=>dispatch(idSlice.actions.indTransfer(ind))}>
                             <Link to={`/characters/${character.url.split('/').slice(-2, -1)[0]}`}>
                               {character.name}
                             </Link>

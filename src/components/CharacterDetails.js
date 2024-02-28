@@ -13,6 +13,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import './main.css';
 import bgItems from '../Assets/Images/bg3.jpg';
+import { useSelector } from 'react-redux';
 
 const CharacterDetails = () => {
   // Extracting character id from URL params
@@ -25,6 +26,10 @@ const CharacterDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const img = useSelector((state) => { return state.img })
+
+  let imgIndx = Object.values(img)[0];
 
   // Fetch character details when component mounts or id changes
   useEffect(() => {
@@ -139,10 +144,15 @@ const CharacterDetails = () => {
             bottom={5}
           >
             <Center>
-              <Avatar
-                size={{ base: 'lg', md: 'xl', lg: 'xl' }}
-                name={character.name}
-              />
+              {imgIndx % 2 === 0 && imgIndx % 3 === 0
+                ? <Avatar name={character.name} size='lg' />
+                : <Avatar size={{ base: 'md', md: 'lg' }}
+                  mb={{ base: 2, md: 0 }} src={`${imgIndx % 2 === 0
+                    ? 'https://bit.ly/dan-abramov'
+                    : imgIndx % 3 === 0
+                      ? 'https://bit.ly/sage-adebayo'
+                      : 'https://bit.ly/ryan-florence'}`} />
+              }
             </Center>
             <Center>
               <Heading mt={3} mb={1} fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}>
